@@ -2,7 +2,7 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select/Select';
-import {defaultArticleState, fontFamilyOptions, fontSizeOptions, fontColors, backgroundColors, contentWidthArr} from '../../constants/articleProps'
+import {defaultArticleState, fontFamilyOptions, fontSizeOptions, fontColors, backgroundColors, contentWidthArr, ArticleStateType, OptionType} from '../../constants/articleProps'
 import { RadioGroup } from '../radio-group';
 import { Separator } from '../separator';
 
@@ -15,10 +15,17 @@ import styles from './ArticleParamsForm.module.scss';
 export const ArticleParamsForm = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
 
 	const handleClick = () => {
 		setIsOpen(!isOpen);
 	};
+
+	const handleChange = (type: keyof ArticleStateType, value: OptionType) => {
+		setFormState((prev)=>({
+			...prev, [type]: value
+		}))
+	}
 
 	return (
 		<>
@@ -36,10 +43,10 @@ export const ArticleParamsForm = () => {
 					</Text>
 
 					<Select
-						selected={defaultArticleState.fontFamilyOption}
+						selected={formState.fontFamilyOption}
 						options={fontFamilyOptions}
 						placeholder={defaultArticleState.fontFamilyOption.title}
-						//onChange=
+						onChange={(option: OptionType)=> handleChange('fontFamilyOption', option)}
 						//onClose: {}
 						title='Шрифт'
 					/>
@@ -47,16 +54,16 @@ export const ArticleParamsForm = () => {
 					<RadioGroup
 						name='fontSize'
 						options={fontSizeOptions}
-						selected={defaultArticleState.fontSizeOption}
-						//onChange?: (value: OptionType) => void;
+						selected={formState.fontSizeOption}
+						onChange={(option: OptionType)=> handleChange('fontSizeOption', option)}
 						title='Размер шрифта'
 					/>
 
 					<Select
-						selected={defaultArticleState.fontColor}
+						selected={formState.fontColor}
 						options={fontColors}
 						placeholder={defaultArticleState.fontColor.title}
-						//onChange=
+						onChange={(option: OptionType)=> handleChange('fontColor', option)}
 						//onClose: {}
 						title='Цвет шрифта'
 					/>
@@ -64,19 +71,19 @@ export const ArticleParamsForm = () => {
 					<Separator/>
 
 					<Select
-						selected={defaultArticleState.backgroundColor}
+						selected={formState.backgroundColor}
 						options={backgroundColors}
 						placeholder={defaultArticleState.backgroundColor.title}
-						//onChange=
+						onChange={(option: OptionType)=> handleChange('backgroundColor', option)}
 						//onClose: {}
 						title='Цвет фона'
 					/>
 
 					<Select
-						selected={defaultArticleState.contentWidth}
+						selected={formState.contentWidth}
 						options={contentWidthArr}
 						placeholder={defaultArticleState.contentWidth.title}
-						//onChange=
+						onChange={(option: OptionType)=> handleChange('contentWidth', option)}
 						//onClose: {}
 						title='Ширина контента'
 					/>
