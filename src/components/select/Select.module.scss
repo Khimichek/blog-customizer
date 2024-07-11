@@ -29,6 +29,11 @@
 	cursor: pointer;
 }
 
+.placeholder:hover {
+	outline: 1px solid #FFC802;
+	cursor: pointer;
+}
+
 .placeholder[data-selected='true'] {
 	color: rgb(0 0 0);
 }
@@ -42,10 +47,10 @@
 	outline: 3px solid #000000;
 }
 
-.selectWrapper:not([data-is-active='true'])
+/*.selectWrapper:not([data-is-active='true'])
 	.placeholder:not([data-status='invalid']):hover {
 	outline: 3px solid #000000;
-}
+}*/
 
 .select {
 	position: absolute;
@@ -78,7 +83,11 @@
 }
 
 .option:hover {
-	background: var(--grey, #c4c4c4);
+	background: var(--grey, #EEEEEE);
+}
+
+.option:active {
+	background: var(--grey, #D7D7D7);
 }
 
 @mixin option-color-before {
