@@ -1,3 +1,5 @@
+@import url(../text/index.module.scss);
+
 .button {
 	display: flex;
 	justify-content: center;
@@ -10,10 +12,27 @@
 	cursor: pointer;
 }
 
+.button:first-of-type {
+	background-color: #fff;
+}
+
+.button:first-of-type:hover {
+	cursor: pointer;
+}
+
+.button:last-of-type {
+	background-color: #ffc802;
+}
+
+.button:last-of-type:hover {
+	background-color: #FFEDAB;
+	cursor: pointer;
+}
+/*
 .button:active {
 	background: var(--gold, #ffc802);
 }
 
 .button:hover {
 	background: var(--gold, #ffc802);
-}
+}*/

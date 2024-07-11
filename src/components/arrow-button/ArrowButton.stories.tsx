@@ -17,6 +17,6 @@ type Story = StoryObj<typeof ArrowButton>;
 export const ArrowButtonStory: Story = {
 	args: {
         onClick: () => console.log('Button clicked'),
-		isOpen: false
+		isFormOpen: false
     }
 };

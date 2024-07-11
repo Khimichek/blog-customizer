@@ -5,20 +5,29 @@ import { Select } from '../select/Select';
 import {defaultArticleState, fontFamilyOptions, fontSizeOptions, fontColors, backgroundColors, contentWidthArr, ArticleStateType, OptionType} from '../../constants/articleProps'
 import { RadioGroup } from '../radio-group';
 import { Separator } from '../separator';
+import { ReactNode } from 'react';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import clsx from "clsx";
 
 
 import styles from './ArticleParamsForm.module.scss';
 
-export const ArticleParamsForm = () => {
 
-	const [isOpen, setIsOpen] = useState(false);
-	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
+export type ArticleParamsFormProps = {
+	initialSettings: ArticleStateType;
+	setNewSettings: (data: ArticleStateType) => void;
+};
+
+
+export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
+	const {initialSettings, setNewSettings} = props;
+
+	const [isFormOpen, setIsFormOpen] = useState(false);
+	const [formState, setFormState] = useState<ArticleStateType>(initialSettings);;
 
 	const handleClick = () => {
-		setIsOpen(!isOpen);
+		setIsFormOpen(!isFormOpen);
 	};
 
 	const handleChange = (type: keyof ArticleStateType, value: OptionType) => {
@@ -27,11 +36,18 @@ export const ArticleParamsForm = () => {
 		}))
 	}
 
+	const handleSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
+		setNewSettings(formState);
+	}
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleClick} />
-			<aside className={clsx (styles.container, isOpen && styles.container_open)}>
-				<form className={styles.form}>
+			<ArrowButton isFormOpen={isFormOpen} onClick={handleClick} />
+			<aside className={clsx (styles.container, isFormOpen && styles.container_open)}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit}
+					>
 
 					<Text
 						as='h2'
@@ -96,4 +112,4 @@ export const ArticleParamsForm = () => {
 			</aside>
 		</>
 	);
-};
+}
